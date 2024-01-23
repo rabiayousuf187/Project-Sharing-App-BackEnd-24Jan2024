@@ -1,12 +1,14 @@
 const jwt = require('jsonwebtoken');
-const connectToDatabase = require('../../connectDb');
+const SECRET_KEY = process.env.SECRET_KEY;
+console.log("SECRET_KEY == ", SECRET_KEY);
+// const connectToDatabase = require('../../connectDb');
 
 function verifyToken(req, res, next) {
     const token = req.headers['x-access-token'];
     console.log(token)
     if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
     try {
-        const decoded = jwt.verify(token, "mySecret");
+        const decoded = jwt.verify(token, SECRET_KEY);
         req.email = decoded.email;
         next();
     } catch (error) {
@@ -20,7 +22,7 @@ const checkRole = (role) => {
         console.log(token)
         if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
         try {
-            const decoded = jwt.verify(token, "mySecret");
+            const decoded = jwt.verify(token, SECRET_KEY);
             console.log(decoded)
             req.email = decoded.email;
             const userRole = decoded.role;

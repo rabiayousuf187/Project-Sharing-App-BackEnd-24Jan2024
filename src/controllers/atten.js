@@ -1,7 +1,8 @@
 const express = require('express');
 const jwt = require('jsonwebtoken')
 const Attendance = require("../models/attendance");
-
+const SECRET_KEY = process.env.SECRET_KEY;
+console.log("SECRET_KEY == ", SECRET_KEY)
 // const getUser = async (req, res) => {
 //     const allUsers = await Users.find();
 //     return res.send(allUsers);
@@ -49,7 +50,7 @@ const getMyAttandance = async (req, res) => {
         console.log(token)
         if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
 
-        const decode = jwt.verify(token, "mySecret")
+        const decode = jwt.verify(token, SECRET_KEY)
         console.log(decode);
 
         if (user.email === decode.email) {
@@ -125,7 +126,7 @@ const checkOut = async (req, res) => {
 //         var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
 //         if (!passwordIsValid) return res.status(401).send({ auth: 'Invalid Password' });
 
-//         var token = jwt.sign({ email: user.email, role: user.role }, "mySecret", {
+//         var token = jwt.sign({ email: user.email, role: user.role }, SECRET_KEY, {
 //             expiresIn: 86400 // expires in 24 hours
 //         });
 //         console.log("Successfully loged in...")

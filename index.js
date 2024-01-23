@@ -1,11 +1,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-const cors = require("cors")
+const cors = require("cors");
+const dotenv = require('dotenv');
+const port = process.env.PORT || 5000;
+console.log("Server Started on port", port);
+let connectToDatabase = require("./connectDb")
+
+// config dotenv
+dotenv.config();
 app.use(express.json())
 app.use(cors())
 
-let connectToDatabase = require("./connectDb")
 let users = require("./src/routes/users");
 let atten = require("./src/routes/atten")
 
@@ -19,5 +25,7 @@ app.get('/', (req, res) => {
     res.send("Hello World....");
 });
 
-console.log('Backend is running on port 8080.')
-app.listen(8080);
+
+app.listen(port , ()=>{
+    console.log("Server Started on port", port)
+ })

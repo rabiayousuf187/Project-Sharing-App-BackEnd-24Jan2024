@@ -1,8 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
-const router = express.Router();
+// const router = express.Router();
 const Users = require("../models/users");
+const SECRET_KEY = process.env.SECRET_KEY;
+console.log("SECRET_KEY == ", SECRET_KEY)
 
 const getUser = async (req, res) => {
     const allUsers = await Users.find();
@@ -35,7 +37,7 @@ const addUser = async (req, res) => {
                 role: 'user'
             });
             if (user) {
-                var token = jwt.sign({ email: user.email, role: user.role }, "mySecret", {
+                var token = jwt.sign({ email: user.email, role: user.role }, SECRET_KEY, {
                     expiresIn: 86400 // expires in 24 hours
                 });
                 return res.status(200).send({ auth: true, token: token });
@@ -62,7 +64,7 @@ const getUserByEmail = async (req, res) => {
             return res.status(400).send("Email parameter is required.");
         }
 
-        const decode = jwt.verify(token, "mySecret")
+        const decode = jwt.verify(token, SECRET_KEY)
         console.log(decode);
         const user = await Users.findOne({ email });
         if (user) {
@@ -136,7 +138,7 @@ const loginUser = async (req, res) => {
         var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
         if (!passwordIsValid) return res.status(401).send({ auth: 'Invalid Password' });
 
-        var token = jwt.sign({ email: user.email, role: user.role }, "mySecret", {
+        var token = jwt.sign({ email: user.email, role: user.role }, SECRET_KEY, {
             expiresIn: 86400 // expires in 24 hours
         });
         console.log("Successfully loged in...")
