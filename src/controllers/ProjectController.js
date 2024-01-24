@@ -105,7 +105,7 @@ const getAllProjetcs = async (req, res) => {
 
 }
 
-const getUserAllBlogs = async (req, res) => {
+const getUserAllProjects = async (req, res) => {
 
     console.log("Blog getAllBlogs Route Successfully Accessed")
     try {
@@ -120,5 +120,5 @@ const getUserAllBlogs = async (req, res) => {
 }
 
 
-module.exports = { createProject, getAllProjetcs, deleteBlog, getUserAllBlogs }
+module.exports = { createProject, getAllProjetcs, deleteBlog, getUserAllProjects }
 
