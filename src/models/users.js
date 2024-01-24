@@ -9,15 +9,6 @@ const userInfoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    userId: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    courseName: {
-        type: String,
-        required: true
-    },
     password: {
         type: String,
         required: true
@@ -27,7 +18,7 @@ const userInfoSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    role: String
-});
-
+    role: String,
+},
+ {timestamps : true});
 module.exports = userInfo = mongoose.model("Users", userInfoSchema);
