@@ -4,14 +4,14 @@ const createProject = async (req, res) => {
 
       // rxing req.userId fro Auth Middleware to Controller
     console.log("after Auth in Create Blog ==", req.userId)
-    const {title , details, devName, url} = req.body;
+    const {title , details, devName, url, userId} = req.body;
 
     const newProject = new blogModel({
             title: title,
             details: details,
             devName: devName,
             url: url,
-            userId: req.userId
+            userId: userId
     });
     try {
         await newProject.save();
