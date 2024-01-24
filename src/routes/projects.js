@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { createProject } = require('../controllers/ProjectController')
+const { createProject, getAllProjetcs, getUserAllBlogs } = require('../controllers/ProjectController')
 const { verifyToken, checkRole } = require('../middlewares/authMiddleware')
 
 // router.use(bodyParser.urlencoded({ extended: false }));
@@ -9,7 +9,8 @@ const { verifyToken, checkRole } = require('../middlewares/authMiddleware')
 // router.get("/", checkRole('admin'), geta);
 router.post("/addProject", createProject)
 // router.get("/checkOut", checkOut)
-// router.delete("/getMyAttendance", getMyAttandance)
+router.get("/getAllProjetcs", getAllProjetcs)
+router.post("/getUserAllBlogs", getUserAllBlogs)
 // // router.get("/deleteUser", deleteUser)
 // router.post("/updateUser", updateUser)
 // router.post("/loginUser", loginUser)

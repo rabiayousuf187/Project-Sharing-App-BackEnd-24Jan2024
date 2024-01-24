@@ -89,29 +89,29 @@ const deleteBlog = async (req, res) => {
     
 }
 
-const getBlogsByUser = async (req, res) => {
+const getAllProjetcs = async (req, res) => {
 
     console.log("Blog getSpecificUserAllBlogs Route Successfully Accessed")
     try {
-        console.log("User ID --===", req.userId);
-        const blogs = await blogModel.find({userId: req.userId})
+        // console.log("User ID --===", req.userId);
+        const projects = await blogModel.find({})
 
         console.log("Get getSpecificUserAllBlogs All Blogs Successfully!");
-        res.status(200).json({data: blogs, message: "Blogs by UserId Getted Successfully!"})
+        res.status(200).json({data: projects})
     } catch (error) {
-        console.log("error in Blog Get === ",error);
+        console.log("error in Getting All User Projects Get === ",error);
         res.status(500).json({ message: "Something went wrong while Getting Blog" })
     }
 
 }
 
-const getAllBlogs = async (req, res) => {
+const getUserAllBlogs = async (req, res) => {
 
     console.log("Blog getAllBlogs Route Successfully Accessed")
     try {
-        const notes = await blogModel.find({userId: req.userId})
-        console.log("Get All Blogs Successfully!");
-        res.status(200).json(notes)
+        const projects = await blogModel.find({userId: req.body.userId})
+        console.log("Get All Blogs by ID Successfully!");
+        res.status(200).json({data: projects})
     } catch (error) {
         console.log("error in Blog Get === ",error);
         res.status(500).json({ message: "Something went wrong while Getting Blog" })
@@ -120,5 +120,5 @@ const getAllBlogs = async (req, res) => {
 }
 
 
-module.exports = { createProject, updateBlog, deleteBlog, getBlogsByUser, getAllBlogs }
+module.exports = { createProject, getAllProjetcs, deleteBlog, getUserAllBlogs }
 
